@@ -13,10 +13,10 @@ public class Signature {
     private BigInteger S2;
     private BigInteger H;
 
-    private byte[] tekstJawny;
+    private byte[] plainText;
 
-    public Signature(byte[] tekstJawny) {
-        this.tekstJawny = tekstJawny;
+    public Signature(byte[] plainText) {
+        this.plainText = plainText;
         Random rnd = new Random();
         BigInteger q;
         BigInteger TWO = BigInteger.valueOf(2);
@@ -133,9 +133,7 @@ public class Signature {
         } catch (NoSuchAlgorithmException e) {
             System.err.println("zly algorytm");
         }
-        BigInteger H = new BigInteger(hash.digest(tekstJawny));
+        BigInteger H = new BigInteger(hash.digest(plainText));
         return H;
     }
-
 }
-

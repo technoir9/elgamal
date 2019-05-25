@@ -43,33 +43,29 @@ public class Main extends Application {
         GridPane.setConstraints(tekstZaszyfr, 1, 1);
 
         //Przyciski
-        Button button_szyfr = new Button("Podpisz");
-        GridPane.setConstraints(button_szyfr, 3, 0);
+        Button generateSignButton = new Button("Podpisz");
+        GridPane.setConstraints(generateSignButton, 3, 0);
 
-        button_szyfr.setOnAction(e -> {
+        generateSignButton.setOnAction(e -> {
             String filePath = tekstPlik.getText();
             FileService fileService =new FileService();
             Signature signature =new Signature(fileService.readFile(filePath));
             signature.generateSignature();
             try {
-//                fileService.podpisDoPliku(FileService.pathBox("Sciezka do zapisu podpisu"), signature.getS1(), signature.getS2());
-//                fileService.kluczykDoPliku(FileService.pathBox("Sciezka do zapisu klucza"), signature.getP(), signature.getG(), signature.getH());
-                fileService.podpisDoPliku(SIGNATURE_PATH, signature.getS1(), signature.getS2());
-                fileService.kluczykDoPliku(KEY_PATH, signature.getP(), signature.getG(), signature.getH());
+                fileService.signatureToFile(SIGNATURE_PATH, signature.getS1(), signature.getS2());
+                fileService.keyToFile(KEY_PATH, signature.getP(), signature.getG(), signature.getH());
             }   catch (IOException el) {
                 el.printStackTrace();
             }
         });
 
-        Button button_szyfrplik = new Button("Sprawdz plik");
-        GridPane.setConstraints(button_szyfrplik, 3, 1);
+        Button verifySignButton = new Button("Sprawdz plik");
+        GridPane.setConstraints(verifySignButton, 3, 1);
 
-        button_szyfrplik.setOnAction(e -> {
+        verifySignButton.setOnAction(e -> {
             FileService fileService = new FileService();
             String fileTekst = tekstZaszyfr.getText();
             Signature signature = new Signature(fileService.readFile(fileTekst));
-//            String filePodpis = FileService.pathBox("Sciezka do odczytu pliku z podpisem");
-//            String fileKlucz = FileService.pathBox("Sciezka do odczytu pliku z kluczem");
             String filePodpis = SIGNATURE_PATH;
             String fileKlucz = KEY_PATH;
 
@@ -88,12 +84,12 @@ public class Main extends Application {
             BigInteger H = signature.getHash();
             //System.out.println("H:" + H);
             SignatureVerification signatureVerification = new SignatureVerification(p,h,g,H,s1,s2);
-            if (signatureVerification.verify()) FileService.checkBox("Signature sie zgadza");
-            else FileService.checkBox("Signature błędny");
+            if (signatureVerification.verify()) FileService.checkBox("Pozytywny wynik weryfikacjy");
+            else FileService.checkBox("Negatywny wynik weryfikacjy");
         });
 
         //Dodawanie do Grid
-        grid.getChildren().addAll(nazwaPlik, tekstPlik, nazwaZaszyfr, tekstZaszyfr, button_szyfr, button_szyfrplik);
+        grid.getChildren().addAll(nazwaPlik, tekstPlik, nazwaZaszyfr, tekstZaszyfr, generateSignButton, verifySignButton);
 
 
         Scene scene = new Scene(grid, 500, 90);

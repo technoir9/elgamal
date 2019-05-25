@@ -40,19 +40,19 @@ public class FileService {
         return fileByte;
     }
 
-    public void kluczykDoPliku(String pathFile,BigInteger p, BigInteger g, BigInteger h) throws IOException {
-        try (PrintWriter kluczyk = new PrintWriter(pathFile)) {
-            kluczyk.println(p);
-            kluczyk.println(g);
-            kluczyk.println(h);
-            //kluczyk.println(H);
+    public void keyToFile(String pathFile, BigInteger p, BigInteger g, BigInteger h) throws IOException {
+        try (PrintWriter keyFile = new PrintWriter(pathFile)) {
+            keyFile.println(p);
+            keyFile.println(g);
+            keyFile.println(h);
+            //keyFile.println(H);
         }catch (FileNotFoundException e){ System.out.println("Nie ma takiego pliku");}
     }
 
-    public void podpisDoPliku (String pathFile,BigInteger s1, BigInteger s2){
-        try (PrintWriter podpis = new PrintWriter(pathFile)) {
-            podpis.println(s1);
-            podpis.println(s2);
+    public void signatureToFile(String pathFile, BigInteger s1, BigInteger s2){
+        try (PrintWriter signatureFile = new PrintWriter(pathFile)) {
+            signatureFile.println(s1);
+            signatureFile.println(s2);
         }catch (FileNotFoundException e){ System.out.println("Nie ma takiego pliku");}
     }
 
@@ -70,14 +70,14 @@ public class FileService {
         return tab;
     }
 
-    public static String pathBox(String komunikat){
+    public static String pathBox(String message){
         Stage alert = new Stage();
         alert.initModality(Modality.APPLICATION_MODAL);
         alert.setTitle("Wybierz swoją drogę");
         alert.setMinWidth(250);
         final String[] path = {""};
 
-        Label label = new Label(komunikat);
+        Label label = new Label(message);
         TextField field = new TextField();
 
 
@@ -98,13 +98,13 @@ public class FileService {
         return path[0];
 
     }
-    public static void checkBox(String komunikat){
+    public static void checkBox(String message){
         Stage alert = new Stage();
         alert.initModality(Modality.APPLICATION_MODAL);
-        alert.setTitle("Sprawdzanko");
+        alert.setTitle("Sprawdzanie");
         alert.setMinWidth(250);
 
-        Label label = new Label(komunikat);
+        Label label = new Label(message);
 
         Button close = new Button("EXIT");
         close.setOnAction(e -> {
