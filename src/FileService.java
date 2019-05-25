@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.nio.charset.Charset;
 import java.util.Scanner;
 
 public class FileService {
@@ -40,6 +41,10 @@ public class FileService {
         return fileByte;
     }
 
+    public byte[] readString(String input) {
+        return input.getBytes(Charset.forName("UTF-8"));
+    }
+
     public void keyToFile(String pathFile, BigInteger p, BigInteger g, BigInteger h) throws IOException {
         try (PrintWriter keyFile = new PrintWriter(pathFile)) {
             keyFile.println(p);
@@ -56,7 +61,7 @@ public class FileService {
         }catch (FileNotFoundException e){ System.out.println("Nie ma takiego pliku");}
     }
 
-    public BigInteger[] odczytaj(String path, int size){
+    public BigInteger[] readFile(String path, int size){
         BigInteger tab[] = new BigInteger[size];
         Scanner in = null;
         try{
