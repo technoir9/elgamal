@@ -36,7 +36,7 @@ public class Main extends Application {
         TextField firstFilePath = new TextField();
         GridPane.setConstraints(firstFilePath, 1, 0);
 
-        Label secondLabel = new Label("Podaj sciezke do pliku do sprawdzenia:");
+        Label secondLabel = new Label("Podaj ścieżkę do pliku do sprawdzenia:");
         GridPane.setConstraints(secondLabel, 0, 1);
 
         TextField secondFilePath = new TextField();
@@ -55,7 +55,7 @@ public class Main extends Application {
         GridPane.setConstraints(secondInput, 1, 3);
 
         //Przyciski
-        Button generateSignButton = new Button("Podpisz");
+        Button generateSignButton = new Button("Podpisz plik");
         GridPane.setConstraints(generateSignButton, 3, 0);
 
         generateSignButton.setOnAction(e -> {
@@ -96,12 +96,12 @@ public class Main extends Application {
             BigInteger H = signature.getHash();
             //System.out.println("H:" + H);
             SignatureVerification signatureVerification = new SignatureVerification(p,h,g,H,s1,s2);
-            if (signatureVerification.verify()) FileService.checkBox("Pozytywny wynik weryfikacjy");
-            else FileService.checkBox("Negatywny wynik weryfikacjy");
+            if (signatureVerification.verify()) FileService.checkBox("Pozytywny wynik weryfikacji");
+            else FileService.checkBox("Negatywny wynik weryfikacji");
         });
 
         //Przyciski
-        Button generateInputSignButton = new Button("Podpisz");
+        Button generateInputSignButton = new Button("Podpisz tekst");
         GridPane.setConstraints(generateInputSignButton, 3, 2);
 
         generateInputSignButton.setOnAction(e -> {
@@ -142,8 +142,8 @@ public class Main extends Application {
             BigInteger H = signature.getHash();
             //System.out.println("H:" + H);
             SignatureVerification signatureVerification = new SignatureVerification(p,h,g,H,s1,s2);
-            if (signatureVerification.verify()) FileService.checkBox("Pozytywny wynik weryfikacjy");
-            else FileService.checkBox("Negatywny wynik weryfikacjy");
+            if (signatureVerification.verify()) FileService.checkBox("Pozytywny wynik weryfikacji");
+            else FileService.checkBox("Negatywny wynik weryfikacji");
         });
 
         //Dodawanie do Grid

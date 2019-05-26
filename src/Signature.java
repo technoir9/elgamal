@@ -129,7 +129,7 @@ public class Signature {
     public BigInteger hash() {
         MessageDigest hash = null;
         try {
-            hash = MessageDigest.getInstance("MD5");
+            hash = MessageDigest.getInstance("SHA-256");
         } catch (NoSuchAlgorithmException e) {
             System.err.println("zly algorytm");
         }
